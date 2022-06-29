@@ -37,26 +37,25 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
-const dataService =
-  process.env.apiROOT +
-  '/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory'
+// const dataService =
+//   process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
 
-const dataUrl = '/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory'
+const dataUrl = "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
 
 export default {
-  name: 'Status',
+  name: "Status",
   components: {},
   head() {
     return {
-      title: this.getNodeName() + ' [' + this.$options.name + ']',
-    }
+      title: this.getNodeName() + " [" + this.$options.name + "]",
+    };
   },
   methods: {
     ...mapGetters({
-      getNodeName: 'getNodeName',
-      getApiRoot: 'getApiRoot',
+      getNodeName: "getNodeName",
+      getApiRoot: "getApiRoot",
     }),
   },
   data() {
@@ -69,23 +68,21 @@ export default {
       olsr: {},
       storage: {},
       memory: {},
-    }
+    };
   },
   async fetch() {
     try {
-      this.info = await fetch(this.getApiRoot() + dataUrl).then((res) =>
-        res.json()
-      )
-      this.ip = this.info.pages.status.ip
-      this.meshrf = this.info.pages.status.meshrf
-      this.location = this.info.pages.status.location
-      this.sysinfo = this.info.pages.status.sysinfo
-      this.olsr = this.info.pages.status.olsr
-      this.storage = this.info.pages.status.storage
-      this.memory = this.info.pages.status.memory
+      this.info = await fetch(this.getApiRoot() + dataUrl).then((res) => res.json());
+      this.ip = this.info.pages.status.ip;
+      this.meshrf = this.info.pages.status.meshrf;
+      this.location = this.info.pages.status.location;
+      this.sysinfo = this.info.pages.status.sysinfo;
+      this.olsr = this.info.pages.status.olsr;
+      this.storage = this.info.pages.status.storage;
+      this.memory = this.info.pages.status.memory;
     } catch (error) {
-      console.log('`ERROR: ${error}`')
+      console.log("`ERROR: ${error}`");
     }
   },
-}
+};
 </script>

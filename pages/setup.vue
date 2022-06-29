@@ -16,7 +16,14 @@
       <!-- ROW 2 -->
       <v-row justify="center" align="stretch">
         <v-col cols="12">
-          <SetupBasicMeshrf :info="meshrf" />
+          <!-- <SetupBasicMeshrf :info="meshrf" /> -->
+          <SetupBasicRadio title="Radio #0" radio="wlan0" :info="info" />
+        </v-col>
+      </v-row>
+      <!-- ROW 2 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicRadio title="Radio #1" radio="wlan1" :info="info" />
         </v-col>
       </v-row>
       <!-- ROW 3 -->
@@ -56,7 +63,8 @@
 <script>
 import { mapGetters } from "vuex";
 
-const dataService = process.env.apiROOT + "/apiprotected?topic=setup_basic";
+// const dataService = process.env.apiROOT + "/apiprotected?topic=setup_basic";
+const dataUrl = "/apiprotected?topic=setup_basic";
 
 export default {
   name: "Setup",
@@ -68,7 +76,10 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["getNodeName"]),
+    ...mapGetters({
+      getNodeName: "getNodeName",
+      getApiRoot: "getApiRoot",
+    }),
     handleSubmit() {
       alert("submit!");
     },
@@ -87,7 +98,7 @@ export default {
   },
   async fetch() {
     try {
-      this.info = await fetch(dataService).then((res) => res.json());
+      this.info = await fetch(this.getApiRoot() + dataUrl).then((res) => res.json());
       this.info = this.info.data;
       this.basic = this.info.basic;
       this.meshrf = this.info.meshrf;

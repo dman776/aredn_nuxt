@@ -23,14 +23,14 @@
       <v-row>
         <v-col>
           <v-text-field
-            v-model="lanip"
+            v-model="info.ip"
             label="IP Address"
             :readonly="info.mode != 0"
           ></v-text-field>
         </v-col>
         <v-col>
           <v-text-field
-            v-model="lanmask"
+            v-model="info.mask"
             label="Netmask"
             :readonly="info.mode != 0"
           ></v-text-field>
